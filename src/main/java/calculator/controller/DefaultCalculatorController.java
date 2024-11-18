@@ -1,8 +1,10 @@
 package calculator.controller;
 
-import calculator.domain.*;
+import calculator.domain.StringCalculatorValue;
 import calculator.io.input.InputHandler;
 import calculator.io.output.OutputHandler;
+import calculator.service.CalculatorService;
+import calculator.service.SeparatorService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,23 +13,23 @@ public class DefaultCalculatorController implements CalculatorController {
 	
 	private final InputHandler inputHandler;
 	private final OutputHandler outputHandler;
+	private final SeparatorService separatorService;
+	private final CalculatorService calculatorService;
 	
-	public DefaultCalculatorController(InputHandler inputHandler, OutputHandler outputHandler) {
+	public DefaultCalculatorController(InputHandler inputHandler, OutputHandler outputHandler, SeparatorService separatorService, CalculatorService calculatorService) {
 		this.inputHandler = inputHandler;
 		this.outputHandler = outputHandler;
+		this.separatorService = separatorService;
+		this.calculatorService = calculatorService;
 	}
 	
 	@Override
 	public void run() {
 		outputHandler.handleStart();
-		String stringToAdd = inputHandler.getStringToAdd();
-		StringCalculatorValue value = StringCalculatorValue.from(stringToAdd);
-		DefaultSeparatorFactory defaultSeparatorFactory = new DefaultSeparatorFactory();
-		CustomSeparatorFactory customSeparatorFactory = CustomSeparatorFactory.from(value);
-		Separators separators = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
-		List<BigDecimal> numbers = separators.separate(value);
-		NumberCalculator numberCalculator = new NumberCalculator(numbers);
-		String result = numberCalculator.caculate();
+		String input = inputHandler.getStringToAdd();
+		StringCalculatorValue value = StringCalculatorValue.from(input);
+		List<BigDecimal> numbers = separatorService.separate(value);
+		String result = calculatorService.calculate(numbers);
 		outputHandler.handleResult(result);
 	}
 }
