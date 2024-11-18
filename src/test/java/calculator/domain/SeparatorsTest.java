@@ -3,7 +3,6 @@ package calculator.domain;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,11 +21,11 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<BigDecimal> result = sut.separate(stringCalculatorValue);
+			List<String> result = sut.separate(stringCalculatorValue);
 			
 			//then
 			assertThat(result).containsExactlyInAnyOrder(
-					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+					"1", "2", "3"
 			);
 		}
 		
@@ -39,11 +38,11 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<BigDecimal> result = sut.separate(stringCalculatorValue);
+			List<String> result = sut.separate(stringCalculatorValue);
 			
 			//then
 			assertThat(result).containsExactlyInAnyOrder(
-					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+					"1", "2", "3"
 			);
 		}
 		
@@ -56,11 +55,11 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<BigDecimal> result = sut.separate(stringCalculatorValue);
+			List<String> result = sut.separate(stringCalculatorValue);
 			
 			//then
 			assertThat(result).containsExactlyInAnyOrder(
-					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+					"1", "2", "3"
 			);
 		}
 		
@@ -73,11 +72,11 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<BigDecimal> result = sut.separate(stringCalculatorValue);
+			List<String> result = sut.separate(stringCalculatorValue);
 			
 			//then
 			assertThat(result).containsExactlyInAnyOrder(
-					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3), BigDecimal.valueOf(4)
+					"1", "2", "3", "4"
 			);
 		}
 	}

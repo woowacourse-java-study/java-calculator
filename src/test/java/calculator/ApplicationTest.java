@@ -6,7 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ApplicationTest extends NsTest {
     
@@ -93,6 +94,33 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException(input))
                         .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("숫자 부분은 숫자로 시작되어야 합니다.")
+        );
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "//^\\n:2^3",
+            ":2,3",
+    })
+    void 숫자부분이_숫자로_시작하지_않으면_예외가_발생한다(String input) {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(input))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("숫자 부분은 숫자로 시작되어야 합니다.")
+        );
+    }
+    
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "//^\\n1:2^",
+            "1:2,",
+    })
+    void 숫자부분이_숫자로_끝나지_않으면_예외가_발생한다(String input) {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException(input))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("숫자 부분은 숫자로 끝나야 합니다.")
         );
     }
     
@@ -101,6 +129,7 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1::2:3"))
                         .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("구분자는 연속될 수 없습니다.")
         );
     }
     
@@ -109,15 +138,34 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1;2:3"))
                         .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("지정되지 않은 구분자가 존재합니다.")
         );
     }
     
     @Test
     void 음수가_포함되면_예외가_발생한다() {
         assertSimpleTest(() ->
-            assertThatThrownBy(() -> runException("-1,2,3"))
-                .isInstanceOf(IllegalArgumentException.class)
+                assertThatThrownBy(() -> runException("-1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("숫자 부분은 숫자로 시작되어야 합니다.")
         );
+    }
+    
+    @Test
+    void 음수가_중간에_포함되면_예외가_발생한다() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,-2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessage("구분자는 연속될 수 없습니다.")
+        );
+    }
+    
+    @Test
+    void 마이너스가_구분자로_사용되면_그대로_계산된다() {
+        assertSimpleTest(() -> {
+            run("//-\\n1-2-3");
+            assertThat(output()).contains("결과 : 6");
+        });
     }
     
     @Override

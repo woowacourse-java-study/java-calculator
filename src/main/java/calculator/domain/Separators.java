@@ -2,12 +2,14 @@ package calculator.domain;
 
 import calculator.exception.CustomExceptions;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Separators {
+	
+	private static final Pattern NUMBER_PATTERN = Pattern.compile("-?\\d+");
 	
 	private final List<Separator> separators;
 	
@@ -27,34 +29,23 @@ public class Separators {
 				.toList();
 	}
 	
-	public List<BigDecimal> separate(StringCalculatorValue value) {
+	public List<String> separate(StringCalculatorValue value) {
 		String numberPart = value.getNumberPart();
 		String separatorRegex = createSeparatorRegex();
-		String[] results = numberPart.split(separatorRegex);
-		validate(results);
-		return Arrays.stream(results)
-				.map(BigDecimal::new)
-				.toList();
+		String[] numbers = numberPart.split(separatorRegex);
+		validateOnlyNumberStrings(numbers);
+		return Arrays.asList(numbers);
 	}
 	
-	private static void validate(String[] results) {
-		for (String result : results) {
-			validateIsDigit(result);
-			validateIsPositive(result);
+	private void validateOnlyNumberStrings(String[] numbers) {
+		for (String number : numbers) {
+			validateIsNumberString(number);
 		}
 	}
 	
-	private static void validateIsDigit(String result) {
-		for (char ch : result.toCharArray()) {
-			if (!Character.isDigit(ch)) {
-				throw CustomExceptions.UNDEFIENDED_SEPARATOR.get();
-			}
-		}
-	}
-	
-	private static void validateIsPositive(String result) {
-		if (result.charAt(0) == '-') {
-			throw CustomExceptions.NEGATIVE_VALUE.get();
+	private static void validateIsNumberString(String number) {
+		if (!NUMBER_PATTERN.matcher(number).matches()) {
+			throw CustomExceptions.UNDEFIENDED_SEPARATOR.get();
 		}
 	}
 	

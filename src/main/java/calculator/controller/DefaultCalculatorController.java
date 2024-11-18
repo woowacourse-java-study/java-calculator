@@ -6,7 +6,6 @@ import calculator.io.output.OutputHandler;
 import calculator.service.CalculatorService;
 import calculator.service.SeparatorService;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class DefaultCalculatorController implements CalculatorController {
@@ -28,7 +27,7 @@ public class DefaultCalculatorController implements CalculatorController {
 		outputHandler.handleStart();
 		String input = inputHandler.getStringToAdd();
 		StringCalculatorValue value = StringCalculatorValue.from(input);
-		List<BigDecimal> numbers = separatorService.separate(value);
+		List<String> numbers = separatorService.separate(value);
 		String result = calculatorService.calculate(numbers);
 		outputHandler.handleResult(result);
 	}
