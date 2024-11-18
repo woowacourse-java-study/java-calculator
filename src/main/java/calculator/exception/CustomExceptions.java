@@ -6,6 +6,10 @@ public enum CustomExceptions {
 			"잘못된 입력입니다.",
 			IllegalArgumentException.class
 	),
+	NEGATIVE_VALUE(
+			"음수는_포함될_수_없습니다",
+			IllegalArgumentException.class
+	),
 	;
 	
 	private final String message;

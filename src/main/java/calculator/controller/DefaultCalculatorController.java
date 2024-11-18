@@ -25,8 +25,8 @@ public class DefaultCalculatorController implements CalculatorController {
 		CustomSeparatorFactory customSeparatorFactory = CustomSeparatorFactory.from(value);
 		Separators separators = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 		List<Integer> numbers = separators.separate(value);
-		NumberCalculator numberCalculator = new NumberCalculator();
-		long result = numberCalculator.caculate(numbers);
+		NumberCalculator numberCalculator = new NumberCalculator(numbers);
+		long result = numberCalculator.caculate();
 		outputHandler.handleResult(result);
 	}
 }

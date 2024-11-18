@@ -15,10 +15,10 @@ class NumberCalculatorTest {
 		void 정상적으로_여러_값을_더한다() {
 		    //given
 			List<Integer> numbers = List.of(1, 2, 3);
-			NumberCalculator sut = new NumberCalculator();
+			NumberCalculator sut = new NumberCalculator(numbers);
 			
 			//when
-			long result = sut.caculate(numbers);
+			long result = sut.caculate();
 			
 			//then
 			Assertions.assertThat(result).isEqualTo(6L);
@@ -28,10 +28,10 @@ class NumberCalculatorTest {
 		void 값이_하나도_없으면_0을_반환한다() {
 			//given
 			List<Integer> numbers = List.of();
-			NumberCalculator sut = new NumberCalculator();
+			NumberCalculator sut = new NumberCalculator(numbers);
 			
 			//when
-			long result = sut.caculate(numbers);
+			long result = sut.caculate();
 			
 			//then
 			Assertions.assertThat(result).isEqualTo(0L);
