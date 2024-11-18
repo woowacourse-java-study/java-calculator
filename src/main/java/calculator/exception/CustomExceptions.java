@@ -6,6 +6,10 @@ public enum CustomExceptions {
 			"잘못된 입력입니다.",
 			IllegalArgumentException.class
 	),
+	UNDEFIENDED_SEPARATOR(
+			"지정되지 않은 구분자가 존재합니다.",
+			IllegalArgumentException.class
+	),
 	SEPARATOR_CONTINUE(
 			"구분자는 연속될 수 없습니다.",
 			IllegalArgumentException.class

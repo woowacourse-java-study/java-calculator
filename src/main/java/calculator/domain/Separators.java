@@ -1,5 +1,8 @@
 package calculator.domain;
 
+import calculator.exception.CustomExceptions;
+
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -24,13 +27,35 @@ public class Separators {
 				.toList();
 	}
 	
-	public List<Integer> separate(StringCalculatorValue value) {
+	public List<BigDecimal> separate(StringCalculatorValue value) {
 		String numberPart = value.getNumberPart();
 		String separatorRegex = createSeparatorRegex();
-		String[] result = numberPart.split(separatorRegex);
-		return Arrays.stream(result)
-				.map(Integer::valueOf)
+		String[] results = numberPart.split(separatorRegex);
+		validate(results);
+		return Arrays.stream(results)
+				.map(BigDecimal::new)
 				.toList();
+	}
+	
+	private static void validate(String[] results) {
+		for (String result : results) {
+			validateIsDigit(result);
+			validateIsPositive(result);
+		}
+	}
+	
+	private static void validateIsDigit(String result) {
+		for (char ch : result.toCharArray()) {
+			if (!Character.isDigit(ch)) {
+				throw CustomExceptions.UNDEFIENDED_SEPARATOR.get();
+			}
+		}
+	}
+	
+	private static void validateIsPositive(String result) {
+		if (result.charAt(0) == '-') {
+			throw CustomExceptions.NEGATIVE_VALUE.get();
+		}
 	}
 	
 	private String createSeparatorRegex() {

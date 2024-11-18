@@ -1,13 +1,12 @@
 package calculator.domain;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SeparatorsTest {
 	
@@ -16,17 +15,19 @@ class SeparatorsTest {
 		
 		@Test
 		void 커스텀구분자가_없는_문자열을_분리한다() {
-		    //given
+			//given
 			StringCalculatorValue stringCalculatorValue = StringCalculatorValue.from("1:2:3");
 			DefaultSeparatorFactory defaultSeparatorFactory = new DefaultSeparatorFactory();
 			CustomSeparatorFactory customSeparatorFactory = CustomSeparatorFactory.from(stringCalculatorValue);
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<Integer> result = sut.separate(stringCalculatorValue);
+			List<BigDecimal> result = sut.separate(stringCalculatorValue);
 			
 			//then
-			assertThat(result).containsExactlyInAnyOrder(1, 2, 3);
+			assertThat(result).containsExactlyInAnyOrder(
+					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+			);
 		}
 		
 		@Test
@@ -38,10 +39,12 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<Integer> result = sut.separate(stringCalculatorValue);
+			List<BigDecimal> result = sut.separate(stringCalculatorValue);
 			
 			//then
-			assertThat(result).containsExactlyInAnyOrder(1, 2, 3);
+			assertThat(result).containsExactlyInAnyOrder(
+					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+			);
 		}
 		
 		@Test
@@ -53,10 +56,12 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<Integer> result = sut.separate(stringCalculatorValue);
+			List<BigDecimal> result = sut.separate(stringCalculatorValue);
 			
 			//then
-			assertThat(result).containsExactlyInAnyOrder(1, 2, 3);
+			assertThat(result).containsExactlyInAnyOrder(
+					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3)
+			);
 		}
 		
 		@Test
@@ -68,10 +73,12 @@ class SeparatorsTest {
 			Separators sut = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
 			
 			//when
-			List<Integer> result = sut.separate(stringCalculatorValue);
+			List<BigDecimal> result = sut.separate(stringCalculatorValue);
 			
 			//then
-			assertThat(result).containsExactlyInAnyOrder(1, 2, 3, 4);
+			assertThat(result).containsExactlyInAnyOrder(
+					BigDecimal.valueOf(1), BigDecimal.valueOf(2), BigDecimal.valueOf(3), BigDecimal.valueOf(4)
+			);
 		}
 	}
 	
