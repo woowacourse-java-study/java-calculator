@@ -1,11 +1,12 @@
 package calculator.domain;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class CustomSeparatorFactory implements SeparatorFactory {
 	
-	private static final Pattern CUSTOM_SEPARATOR_FORMAT = Pattern.compile("^//(\\D*)\\\\n");
+	private static final String CUSTOM_SEPARATOR_START = "//";
+	private static final String CUSTOM_SEPARATOR_END = "\\n";
+	
 	private final List<Character> customValues;
 	
 	private CustomSeparatorFactory(List<Character> customValues) {
@@ -21,11 +22,13 @@ public class CustomSeparatorFactory implements SeparatorFactory {
 	}
 	
 	private static boolean hasCustomSeparator(String input) {
-		return CUSTOM_SEPARATOR_FORMAT.matcher(input).matches();
+		return input.startsWith(CUSTOM_SEPARATOR_START) && input.contains(CUSTOM_SEPARATOR_END);
 	}
 	
 	private static List<Character> extractCustomSeparatorValues(String input) {
-		String customSeparatorPart = CUSTOM_SEPARATOR_FORMAT.matcher(input).group(1);
+		int startIndex = input.indexOf(CUSTOM_SEPARATOR_START) + 2;
+		int endIndex = input.indexOf(CUSTOM_SEPARATOR_END);
+		String customSeparatorPart = input.substring(startIndex, endIndex);
 		return customSeparatorPart.chars()
 				.mapToObj(c -> (char) c)
 				.toList();
