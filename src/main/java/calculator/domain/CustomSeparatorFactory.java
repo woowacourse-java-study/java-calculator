@@ -1,5 +1,7 @@
 package calculator.domain;
 
+import calculator.exception.CustomExceptions;
+
 import java.util.List;
 
 public class CustomSeparatorFactory implements SeparatorFactory {
@@ -7,7 +9,16 @@ public class CustomSeparatorFactory implements SeparatorFactory {
 	private final List<Character> customValues;
 	
 	private CustomSeparatorFactory(List<Character> customValues) {
+		validate(customValues);
 		this.customValues = customValues;
+	}
+	
+	private void validate(List<Character> customValues) {
+		for (Character value : customValues) {
+			if (Character.isDigit(value)) {
+				throw CustomExceptions.DIGIT_CUSTOM_SEPARATOR.get();
+			}
+		}
 	}
 	
 	public static CustomSeparatorFactory from(StringCalculatorValue value) {
