@@ -17,9 +17,9 @@ class CustomSeparatorFactoryTest {
 		@ParameterizedTest
 		@MethodSource("getNoCustomSeparatorInput")
 		void 커스텀_구분자가_없는_문자열로_생성한다(StringCalculatorValue input) {
-		    //given
-		    
-		    //when
+			//given
+			
+			//when
 			CustomSeparatorFactory result = CustomSeparatorFactory.from(input);
 			
 			//then
@@ -60,7 +60,7 @@ class CustomSeparatorFactoryTest {
 					Arguments.arguments(StringCalculatorValue.from("//;:^\\n1"), List.of(';', ':', '^'))
 			);
 		}
-	
+		
 	}
 	
 }

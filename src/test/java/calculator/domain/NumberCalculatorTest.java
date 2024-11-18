@@ -42,7 +42,7 @@ class NumberCalculatorTest {
 		
 		@Test
 		void 정상적으로_여러_값을_더한다() {
-		    //given
+			//given
 			List<String> numbers = List.of(
 					"1", "2", "3"
 			);
