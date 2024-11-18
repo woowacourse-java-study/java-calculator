@@ -74,6 +74,14 @@ class ApplicationTest extends NsTest {
         });
     }
     
+    @Test
+    void 매우_긴_문자열도_정상적으로_더한다() {
+        assertSimpleTest(() -> {
+            run("12345678987654321:12345678987654321");
+            assertThat(output()).contains("결과 : 24691357975308642");
+        });
+    }
+    
     @ParameterizedTest
     @ValueSource(strings = {
             "^\\n1:2:3",
@@ -92,6 +100,14 @@ class ApplicationTest extends NsTest {
     void 구분자가_반복되면_예외가_발생한다() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1::2:3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+    
+    @Test
+    void 존재하지_않는_구분자가_존재하면_예외가_발생한다() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1;2:3"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }

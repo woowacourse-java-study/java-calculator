@@ -14,7 +14,7 @@ public class OutputHandler {
 		writer.write("덧셈할 문자열을 입력해 주세요.\n");
 	}
 	
-	public void handleResult(long result) {
-		writer.write("결과 : %d".formatted(result));
+	public void handleResult(String result) {
+		writer.write("결과 : %s".formatted(result));
 	}
 }

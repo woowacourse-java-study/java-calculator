@@ -4,6 +4,7 @@ import calculator.domain.*;
 import calculator.io.input.InputHandler;
 import calculator.io.output.OutputHandler;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class DefaultCalculatorController implements CalculatorController {
@@ -24,9 +25,9 @@ public class DefaultCalculatorController implements CalculatorController {
 		DefaultSeparatorFactory defaultSeparatorFactory = new DefaultSeparatorFactory();
 		CustomSeparatorFactory customSeparatorFactory = CustomSeparatorFactory.from(value);
 		Separators separators = Separators.from(List.of(defaultSeparatorFactory, customSeparatorFactory));
-		List<Integer> numbers = separators.separate(value);
+		List<BigDecimal> numbers = separators.separate(value);
 		NumberCalculator numberCalculator = new NumberCalculator(numbers);
-		long result = numberCalculator.caculate();
+		String result = numberCalculator.caculate();
 		outputHandler.handleResult(result);
 	}
 }

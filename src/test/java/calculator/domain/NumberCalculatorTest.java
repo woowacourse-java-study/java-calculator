@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 class NumberCalculatorTest {
@@ -14,27 +15,31 @@ class NumberCalculatorTest {
 		@Test
 		void 정상적으로_여러_값을_더한다() {
 		    //given
-			List<Integer> numbers = List.of(1, 2, 3);
+			List<BigDecimal> numbers = List.of(
+					BigDecimal.valueOf(1),
+					BigDecimal.valueOf(2),
+					BigDecimal.valueOf(3)
+			);
 			NumberCalculator sut = new NumberCalculator(numbers);
 			
 			//when
-			long result = sut.caculate();
+			String result = sut.caculate();
 			
 			//then
-			Assertions.assertThat(result).isEqualTo(6L);
+			Assertions.assertThat(result).isEqualTo("6");
 		}
 		
 		@Test
 		void 값이_하나도_없으면_0을_반환한다() {
 			//given
-			List<Integer> numbers = List.of();
+			List<BigDecimal> numbers = List.of();
 			NumberCalculator sut = new NumberCalculator(numbers);
 			
 			//when
-			long result = sut.caculate();
+			String result = sut.caculate();
 			
 			//then
-			Assertions.assertThat(result).isEqualTo(0L);
+			Assertions.assertThat(result).isEqualTo("0");
 		}
 	}
 }
