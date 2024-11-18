@@ -16,7 +16,7 @@ class CustomSeparatorFactoryTest {
 		
 		@ParameterizedTest
 		@MethodSource("getNoCustomSeparatorInput")
-		void 커스텀_구분자가_없는_문자열로_생성한다(String input) {
+		void 커스텀_구분자가_없는_문자열로_생성한다(StringCalculatorValue input) {
 		    //given
 		    
 		    //when
@@ -32,7 +32,7 @@ class CustomSeparatorFactoryTest {
 		
 		@ParameterizedTest
 		@MethodSource("getCustomSeparatorInputAndResults")
-		void 커스텀_구분자가_있는_문자열로_생성한다(String input, List<Character> results) {
+		void 커스텀_구분자가_있는_문자열로_생성한다(StringCalculatorValue input, List<Character> results) {
 			//given
 			
 			//when
@@ -49,15 +49,15 @@ class CustomSeparatorFactoryTest {
 		
 		private static Stream<Arguments> getNoCustomSeparatorInput() {
 			return Stream.of(
-					Arguments.arguments("//\\n1"),
-					Arguments.arguments("1:2:3")
+					Arguments.arguments(StringCalculatorValue.of("//\\n1")),
+					Arguments.arguments(StringCalculatorValue.of("1:2:3"))
 			);
 		}
 		
 		private static Stream<Arguments> getCustomSeparatorInputAndResults() {
 			return Stream.of(
-					Arguments.arguments("//;\\n1", List.of(';')),
-					Arguments.arguments("//;:^\\n1", List.of(';', ':', '^'))
+					Arguments.arguments(StringCalculatorValue.of("//;\\n1"), List.of(';')),
+					Arguments.arguments(StringCalculatorValue.of("//;:^\\n1"), List.of(';', ':', '^'))
 			);
 		}
 	
