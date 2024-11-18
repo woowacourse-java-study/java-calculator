@@ -10,6 +10,39 @@ import java.util.List;
 class NumberCalculatorTest {
 	
 	@Nested
+	class 생성_테스트 {
+		
+		@Test
+		void 정상적으로_생성한다() {
+			//given
+			List<BigDecimal> numbers = List.of(
+					BigDecimal.valueOf(1),
+					BigDecimal.valueOf(2),
+					BigDecimal.valueOf(3)
+			);
+			
+			//expected
+			Assertions.assertThatCode(() -> new NumberCalculator(numbers))
+					.doesNotThrowAnyException();
+		}
+		
+		@Test
+		void 음수가_포함되어_있으면_예외가_발생한다() {
+			//given
+			List<BigDecimal> numbers = List.of(
+					BigDecimal.valueOf(-1),
+					BigDecimal.valueOf(2),
+					BigDecimal.valueOf(3)
+			);
+			
+			//expected
+			Assertions.assertThatThrownBy(() -> new NumberCalculator(numbers))
+					.isInstanceOf(IllegalArgumentException.class)
+					.hasMessage("음수는 포함될 수 없습니다.");
+		}
+	}
+	
+	@Nested
 	class 값_더하기_테스트 {
 		
 		@Test
