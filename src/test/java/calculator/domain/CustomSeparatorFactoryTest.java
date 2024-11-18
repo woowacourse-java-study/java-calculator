@@ -49,15 +49,15 @@ class CustomSeparatorFactoryTest {
 		
 		private static Stream<Arguments> getNoCustomSeparatorInput() {
 			return Stream.of(
-					Arguments.arguments(StringCalculatorValue.of("//\\n1")),
-					Arguments.arguments(StringCalculatorValue.of("1:2:3"))
+					Arguments.arguments(StringCalculatorValue.from("//\\n1")),
+					Arguments.arguments(StringCalculatorValue.from("1:2:3"))
 			);
 		}
 		
 		private static Stream<Arguments> getCustomSeparatorInputAndResults() {
 			return Stream.of(
-					Arguments.arguments(StringCalculatorValue.of("//;\\n1"), List.of(';')),
-					Arguments.arguments(StringCalculatorValue.of("//;:^\\n1"), List.of(';', ':', '^'))
+					Arguments.arguments(StringCalculatorValue.from("//;\\n1"), List.of(';')),
+					Arguments.arguments(StringCalculatorValue.from("//;:^\\n1"), List.of(';', ':', '^'))
 			);
 		}
 	

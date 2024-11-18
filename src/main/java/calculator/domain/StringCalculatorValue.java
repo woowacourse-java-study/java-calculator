@@ -13,7 +13,7 @@ public class StringCalculatorValue {
 		this.inputType = inputType;
 	}
 	
-	public static StringCalculatorValue of(String value) {
+	public static StringCalculatorValue from(String value) {
 		if (hasCustomSeparatorPart(value)) {
 			return new StringCalculatorValue(value, InputType.WITH_CUSTOM_SEPARATOR);
 		}
