@@ -1,5 +1,7 @@
 package calculator.domain;
 
+import calculator.exception.CustomExceptions;
+
 import java.util.Objects;
 
 public class Separator {
@@ -7,7 +9,14 @@ public class Separator {
 	private final char value;
 	
 	public Separator(char value) {
+		validate(value);
 		this.value = value;
+	}
+	
+	private void validate(char value) {
+		if (Character.isDigit(value)) {
+			throw CustomExceptions.DIGIT_SEPARATOR.get();
+		}
 	}
 	
 	public String getStringValue() {
