@@ -27,11 +27,7 @@ public class Separators {
 	public List<Integer> separate(StringCalculatorValue value) {
 		String numberPart = value.getNumberPart();
 		String separatorRegex = createSeparatorRegex();
-		System.out.println(separatorRegex);
 		String[] result = numberPart.split(separatorRegex);
-		for (String s : result) {
-			System.out.println(s);
-		}
 		return Arrays.stream(result)
 				.map(Integer::valueOf)
 				.toList();
