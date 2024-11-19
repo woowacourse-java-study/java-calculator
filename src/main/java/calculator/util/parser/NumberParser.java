@@ -60,7 +60,7 @@ public class NumberParser {
     private void addDelimiter(String customDelimiter) {
         for (String delimiter : customDelimiter.split(EMPTY)) {
             delimiterValidator.validate(delimiter);
-            delimiters = String.join(PIPE, delimiters, delimiter);
+            delimiters = String.join(PIPE, delimiters, Pattern.quote(delimiter));
         }
     }
 
