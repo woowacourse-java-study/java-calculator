@@ -53,7 +53,7 @@ public class NumberParser {
     }
 
     private List<String> defaultTokens(String input) {
-        return splitTokens(input);
+        return splitByDelimiter(input);
     }
 
     private List<String> splitByDelimiter(String input) {
