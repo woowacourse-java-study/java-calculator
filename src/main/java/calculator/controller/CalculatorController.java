@@ -19,25 +19,20 @@ public class CalculatorController {
 
     public void run() {
         String input = input();
-        List<Integer> numbers = parse(input);
-        int result = calculate(numbers);
+        int result = calculate(input);
         result(result);
-    }
-
-    private void result(int result) {
-        outputView.printResult(result);
-    }
-
-    private int calculate(List<Integer> numbers) {
-        return calculatorService.sum(numbers);
-    }
-
-    private List<Integer> parse(String input) {
-        return null;
     }
 
     public String input() {
         outputView.printInputPrompt();
         return inputView.getInput();
+    }
+
+    private int calculate(String input) {
+        return calculatorService.calculator(input);
+    }
+
+    private void result(int result) {
+        outputView.printResult(result);
     }
 }
