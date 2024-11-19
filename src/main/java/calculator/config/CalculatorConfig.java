@@ -2,21 +2,29 @@ package calculator.config;
 
 import calculator.controller.CalculatorController;
 import calculator.service.CalculatorService;
+import calculator.util.parser.NumberParser;
+import calculator.util.validator.DelimiterValidator;
+import calculator.util.validator.InputValidator;
+import calculator.util.validator.NumberValidator;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
 public class CalculatorConfig {
 
-    private final InputView inputView = new InputView();
-    private final OutputView outputView = new OutputView();
-    private final CalculatorService calculatorService = new CalculatorService();
     private final CalculatorController calculatorController;
 
     public CalculatorConfig() {
+        InputView inputView = new InputView();
+        OutputView outputView = new OutputView();
+        InputValidator inputValidator = new InputValidator();
+        DelimiterValidator delimiterValidator = new DelimiterValidator();
+        NumberValidator numberValidator = new NumberValidator();
+        NumberParser numberParser = new NumberParser(delimiterValidator, numberValidator);
+        CalculatorService calculatorService = new CalculatorService(inputValidator, numberParser);
         this.calculatorController = new CalculatorController(inputView, outputView, calculatorService);
     }
 
-    public CalculatorController getCalculatorController() {
-        return calculatorController;
+    public void run() {
+        calculatorController.run();
     }
 }
