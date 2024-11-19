@@ -11,7 +11,7 @@ public class CalculatorConfig {
     private final CalculatorController calculatorController;
 
     public CalculatorConfig() {
-        this.calculatorController = calculatorController(inputView, outputView);
+        this.calculatorController = new CalculatorController(inputView, outputView);
     }
 
     public CalculatorController getCalculatorController() {
