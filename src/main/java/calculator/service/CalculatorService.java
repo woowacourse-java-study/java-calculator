@@ -14,13 +14,16 @@ public class CalculatorService {
     }
 
     public int calculator(String input) {
+        if (input.isEmpty()) {
+            return 0;
+        }
         validate(input);
         List<Integer> numbers = parse(input);
         return sum(numbers);
     }
 
     private void validate(String input) {
-//        inputValidator.validate(input);
+        inputValidator.validate(input);
     }
 
     private List<Integer> parse(String input) {
