@@ -1,8 +1,8 @@
 package calculator.util.validator;
 
-import static calculator.common.constant.Constants.DELIMITER_PATTERN;
+import static calculator.common.constant.Constants.CUSTOM_DELIMITER_PATTERN;
+import static calculator.common.constant.Constants.DEFAULT_DELIMITER_PATTERN;
 import static calculator.common.constant.message.ErrorMessages.INVALID_INPUT_FORMAT;
-import static calculator.common.constant.message.ErrorMessages.INVALID_INPUT_NULL;
 
 import java.util.regex.Pattern;
 
@@ -11,7 +11,7 @@ public class InputValidator implements ValidatorStrategy<String> {
     @Override
     public void validate(String input) {
         if (input == null) {
-            throw new IllegalArgumentException(INVALID_INPUT_NULL);
+            return;
         }
         if (!isValidInput(input)) {
             throw new IllegalArgumentException(INVALID_INPUT_FORMAT);
@@ -19,6 +19,14 @@ public class InputValidator implements ValidatorStrategy<String> {
     }
 
     private boolean isValidInput(String input) {
-        return Pattern.matches(DELIMITER_PATTERN, input);
+        return isDefaultDelimiter(input) || isCustomDelimiter(input);
+    }
+
+    private boolean isDefaultDelimiter(String input) {
+        return Pattern.matches(DEFAULT_DELIMITER_PATTERN, input);
+    }
+
+    private boolean isCustomDelimiter(String input) {
+        return Pattern.matches(CUSTOM_DELIMITER_PATTERN, input);
     }
 }

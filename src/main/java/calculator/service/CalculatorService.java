@@ -20,7 +20,7 @@ public class CalculatorService {
     }
 
     private void validate(String input) {
-        inputValidator.validate(input);
+//        inputValidator.validate(input);
     }
 
     private List<Integer> parse(String input) {

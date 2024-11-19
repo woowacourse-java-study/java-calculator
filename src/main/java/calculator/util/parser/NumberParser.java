@@ -1,5 +1,6 @@
 package calculator.util.parser;
 
+import static calculator.common.constant.Constants.CUSTOM_DELIMITER_PARSE_PATTERN;
 import static calculator.common.constant.Constants.CUSTOM_DELIMITER_PATTERN;
 import static calculator.common.constant.Constants.DEFAULT_DELIMITERS;
 import static calculator.common.constant.Constants.EMPTY;
@@ -24,8 +25,15 @@ public class NumberParser {
     }
 
     public List<Integer> parse(String input) {
+        if(input.isEmpty() || isCustomDelimiterWithoutNumber(input)) {
+            return List.of(0);
+        }
         List<String> tokens = splitTokens(input);
         return toNumbers(tokens);
+    }
+
+    private boolean isCustomDelimiterWithoutNumber(String input) {
+        return input.startsWith("//") && input.split("\n").length == 2 && input.split("\n")[1].isEmpty();
     }
 
     private List<String> splitTokens(String input) {
@@ -40,8 +48,19 @@ public class NumberParser {
     }
 
     private List<String> customTokens(String input) {
-        Matcher matcher = Pattern.compile(CUSTOM_DELIMITER_PATTERN).matcher(input);
+        Matcher matcher = Pattern.compile(CUSTOM_DELIMITER_PARSE_PATTERN).matcher(input);
+        if (!matcher.find()) {
+            throw new IllegalArgumentException("입력 문자열이 올바르지 않습니다: " + input);
+        }
+
+        System.out.println("Debug: Custom delimiter -> " + matcher.group(1));
+        System.out.println("Debug: Numbers -> " + matcher.group(2));
+
         addDelimiter(matcher.group(1));
+        String numbers = matcher.group(2);
+        if(numbers == null || numbers.isEmpty()) {
+            return List.of("0");
+        }
         return splitByDelimiter(matcher.group(2));
     }
 

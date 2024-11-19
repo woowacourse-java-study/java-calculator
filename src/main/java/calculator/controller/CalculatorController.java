@@ -29,9 +29,6 @@ public class CalculatorController {
     }
 
     private int calculate(String input) {
-        if(input.isEmpty()) {
-            return 0;
-        }
         return calculatorService.calculator(input);
     }
 
