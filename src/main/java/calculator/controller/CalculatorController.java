@@ -12,4 +12,13 @@ public class CalculatorController {
         this.inputView = inputView;
         this.outputView = outputView;
     }
+
+    public void run() {
+        input();
+    }
+
+    public String input() {
+        outputView.printInputPrompt();
+        return inputView.getInput();
+    }
 }
