@@ -2,6 +2,7 @@ package calculator.controller;
 
 import calculator.view.InputView;
 import calculator.view.OutputView;
+import java.util.List;
 
 public class CalculatorController {
 
@@ -14,7 +15,21 @@ public class CalculatorController {
     }
 
     public void run() {
-        input();
+        String input = input();
+        List<Integer> numbers = parser(input);
+        int result = calculate(numbers);
+        result(result);
+    }
+
+    private void result(int result) {
+        outputView.printResult(result);
+    }
+
+    private int calculate(List<Integer> numbers) {
+        return 0;
+    }
+
+    private List<Integer> parser(String input) {
     }
 
     public String input() {
