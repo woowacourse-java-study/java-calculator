@@ -1,6 +1,7 @@
 package calculator.util.validator;
 
 import static calculator.common.constant.message.ErrorMessages.INVALID_CONTAIN_NUMBER;
+import static calculator.common.constant.message.ErrorMessages.INVALID_EMPTY;
 
 public class DelimiterValidator implements ValidatorStrategy<String> {
     @Override
@@ -12,8 +13,4 @@ public class DelimiterValidator implements ValidatorStrategy<String> {
             throw new IllegalArgumentException(INVALID_CONTAIN_NUMBER);
         }
     }
-
-
-
-
 }
