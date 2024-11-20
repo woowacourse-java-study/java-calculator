@@ -1,7 +1,10 @@
 package calculator;
 
+import calculator.config.CalculatorConfig;
+
 public class Application {
     public static void main(String[] args) {
-        // TODO: 프로그램 구현
+        CalculatorConfig calculatorConfig = new CalculatorConfig();
+        calculatorConfig.run();
     }
 }
